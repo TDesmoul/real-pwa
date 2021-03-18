@@ -1,4 +1,7 @@
-const { environment } = require('@rails/webpacker')
+// from https://dev.to/coorasse/the-progressive-rails-app-46ma
+const { resolve } = require('path');
+const { config, environment, Environment } = require('@rails/webpacker');
+// const { environment } = require('@rails/webpacker')
 
 const webpack = require('webpack');
 // Preventing Babel from transpiling NodeModules packages
@@ -11,4 +14,9 @@ environment.plugins.prepend('Provide',
     Popper: ['popper.js', 'default']
   })
 );
+
+// from https://dev.to/coorasse/the-progressive-rails-app-46ma
+const WebpackerPwa = require('webpacker-pwa');
+new WebpackerPwa(config, environment);
+
 module.exports = environment
