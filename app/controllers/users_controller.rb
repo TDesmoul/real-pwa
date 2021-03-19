@@ -6,10 +6,6 @@ class UsersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [ :save_push_subscription ]
 
   def save_push_subscription
-    # subscription = {}
-    # subscription[:endpoint] = subscription_endpoint
-    # subscription[:keys] = subscription_keys
-    # current_user.push_subscription = subscription
     current_user.push_subscription = subscription_params
     current_user.save
     render json: "endpoint & keys save!".to_json
@@ -20,12 +16,4 @@ class UsersController < ApplicationController
   def subscription_params
     params.permit(:endpoint).merge(params.require(:keys).permit(:p256dh, :auth))
   end
-
-  # def subscription_endpoint
-  #   params.permit(:endpoint)
-  # end
-
-  # def subscription_keys
-  #   params.require(:keys).permit(:p256dh, :auth)
-  # end
 end
