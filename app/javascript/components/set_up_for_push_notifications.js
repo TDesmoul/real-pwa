@@ -3,18 +3,18 @@
 //    déclencher lorsque l'utilisateur clique sur un bouton "activer les notifications" (c'est
 //    une bonne pratique pour les push notifications)
 
-import { requestNotificationPermission } from './request_notification_permission';
-
 const setUpForPushNotifications = () => {
   // uniquement sur la home page (path = '/')
   if (window.location.pathname === "/") {
     console.log("Let's set up push notifications...");
-    navigator.serviceWorker.register('/service-worker.js')
-    .catch(registrationError => {
-      console.log('Service worker registration failed: ', registrationError);
-    })
-    .then(registration => {
-      requestNotificationPermission();
+
+    window.Notification.requestPermission()
+    .then(permission => {
+      if (permission !== 'granted') return;
+      navigator.serviceWorker.register('/service-worker.js')
+      .catch(registrationError => {
+        console.log('Service worker registration failed: ', registrationError);
+      })
     });
   };
 
