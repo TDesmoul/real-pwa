@@ -11,6 +11,17 @@ const setUpForPushNotifications = () => {
     window.Notification.requestPermission()
     .then(permission => {
       if (permission !== 'granted') return;
+      // unregister des service-workers
+      // navigator.serviceWorker.getRegistrations()
+      // .then((registrations) => {
+      //   console.log(registrations);
+      //   registrations.forEach(registration => {
+      //     console.log(registration)
+      //   })
+      //   // for(let registration of registrations) { registration.unregister(); }
+      // })
+      // .then(() => {
+      // })
       navigator.serviceWorker.register('/service-worker.js')
       .catch(registrationError => {
         console.log('Service worker registration failed: ', registrationError);

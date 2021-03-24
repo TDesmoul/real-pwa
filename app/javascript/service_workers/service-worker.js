@@ -12,12 +12,12 @@ const urlB64ToUint8Array = base64String => {
 }
 
 self.addEventListener('install', function(event) {
-  console.log('Service Worker installing.');
+  console.log('Hello from install eventListener.');
 });
 
 self.addEventListener('activate', async function(event) {
-  console.log('Service Worker activated.');
-
+  console.log('Hello from active eventListener');
+  console.log('33333');
   const applicationServerKey = urlB64ToUint8Array('BHNqtdbMU7Y6d6YceCVHdpa7hNUISJqRjtT30QF9sEiYeqxml87_cN4Qd1gAm3_bO9LqcxtgzDrm0c2QA23KHgg');
   const options = { applicationServerKey, userVisibleOnly: true }
 
@@ -25,6 +25,7 @@ self.addEventListener('activate', async function(event) {
   .catch(err => console.log("Error", err))
   .then(subscription => {
     console.log(subscription);
+    console.log(subscription.toJSON());
 
     fetch('/save_push_subscription', {
       method: 'POST',
@@ -37,7 +38,7 @@ self.addEventListener('activate', async function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-  console.log('Service Worker fetching.');
+  // console.log('Service Worker fetching.');
 });
 
 self.addEventListener('push', function(event) {
