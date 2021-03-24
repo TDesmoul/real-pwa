@@ -6,8 +6,20 @@ require("channels")
 // External imports
 import "bootstrap";
 
-import { setUpForPushNotifications } from "../components/set_up_for_push_notifications";
+import { activatePushNotifications, deactivatePushNotifications } from "../components/push_notifications";
+
+// on register au service-worker dès le chargement de la window
+// le fait de register plusieur fois (à chaque window.load) n'est pas génant
+// après vérification => lorsque le service-worker est mis à jour,
+//                       la subscription au pushManager est conservée.
+window.addEventListener('load', () => {
+  navigator.serviceWorker.register('/service-worker.js')
+  .catch(registrationError => {
+    console.log('Service worker registration failed: ', registrationError);
+  })
+})
 
 document.addEventListener('turbolinks:load', () => {
-  setUpForPushNotifications();
+  activatePushNotifications()
+  deactivatePushNotifications();
 });
