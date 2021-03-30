@@ -8,6 +8,12 @@ import "bootstrap";
 
 import { activatePushNotifications, deactivatePushNotifications } from "../components/push_notifications";
 
+import { initHelloCable } from "../channels/hello_channel";
+import { initPostCable } from "../channels/post_channel";
+import { initOtherPostCable } from "../channels/other_post_channel";
+import { initNotificationsCable } from "../channels/notifications_channel";
+import { initUserCable } from "../channels/user_channel";
+
 // on register au service-worker dès le chargement de la window
 // le fait de register plusieur fois (à chaque window.load) n'est pas génant
 // après vérification => lorsque le service-worker est mis à jour,
@@ -20,6 +26,12 @@ window.addEventListener('load', () => {
 })
 
 document.addEventListener('turbolinks:load', () => {
-  activatePushNotifications()
+  activatePushNotifications();
   deactivatePushNotifications();
+
+  initHelloCable();
+  initPostCable();
+  initOtherPostCable();
+  initNotificationsCable();
+  initUserCable();
 });

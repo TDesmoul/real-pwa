@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[ show edit update destroy broadcast ]
 
   # GET /posts or /posts.json
   def index
@@ -8,6 +8,16 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    ActionCable.server.broadcast("hello_world", message: "Salutation de post_controller#show")
+  end
+
+  def broadcast
+    PostChannel.broadcast_to(@post, message: "Salutation de post_controller#broadcast pour PostChannel")
+    ActionCable.server.broadcast("post_#{@post.id}", message: "Salutation de post_controller#broadcast pour OtherPostChannel 1")
+    # OtherPostChannel.broadcast_to("post_#{@post.id}", message: "Salutation de post_controller#broadcast pour OtherPostChannel 2")
+    NotificationsChannel.broadcast_to(current_user, message: "Salutation de post_controller#broadcast pour NorificationsChannel")
+    ActionCable.server.broadcast("user_#{current_user.id}", message: "Salutation de post_controller#broadcast pour UserChannel")
+    redirect_to post_path(@post)
   end
 
   # GET /posts/new

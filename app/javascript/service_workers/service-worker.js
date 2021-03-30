@@ -14,21 +14,21 @@ const urlB64ToUint8Array = base64String => {
 }
 
 self.addEventListener('install', function(event) {
-  console.log('Hello from install eventListener');
+  // console.log('Hello from install eventListener');
 });
 
 self.addEventListener('activate', async function(event) {
-  console.log('Hello from active eventListener');
-  console.log('11111');
+  // console.log('Hello from active eventListener');
+  // console.log('11111');
 });
 
 self.addEventListener('fetch', function(event) {
-  console.log('Hello from fetch eventListener');
+  // console.log('Hello from fetch eventListener');
 });
 
 self.addEventListener('push', function(event) {
-  console.log('Hello from push eventListener')
-  console.log(`Push had this data: "${event.data.text()}"`);
+  // console.log('Hello from push eventListener')
+  // console.log(`Push had this data: "${event.data.text()}"`);
 
   const title = 'PONG!!!';
   const options = { body: event.data.text() };

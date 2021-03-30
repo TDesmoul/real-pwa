@@ -15,7 +15,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
   </head>
 
-  <body id="<%= controller_name %>-<%= action_name %>">
+  <body id="<%= controller_name %>-<%= action_name %>" <%= "data-user-id=#{current_user.id}" if user_signed_in? %>>
 
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
